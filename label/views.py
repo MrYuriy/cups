@@ -14,9 +14,9 @@ class LabelListView(APIView):
         label.print_status = True
         #label.save()
         serializer = LabelSerializer(label)
-        label_code = generate_label(label)
-        #return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response({"label_code":label_code})
+        #label_code = generate_label(label)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+        #return Response({"label_code":label_code})
 
     def post(self, request):
         serializer = LabelSerializer(data=request.data)

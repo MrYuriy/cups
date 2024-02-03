@@ -7,6 +7,7 @@ class Label(models.Model):
     data = models.CharField(max_length=10)
     order = models.CharField(max_length=8)
     identifier = models.CharField(max_length=12)
+    comment = models.CharField(max_length=100)
     print_status = models.BooleanField(default=False)
 
     def __str__(self):

@@ -6,7 +6,8 @@ class Label(models.Model):
     user = models.CharField(max_length=50)
     data = models.CharField(max_length=10)
     order = models.CharField(max_length=8)
-    identifier = models.CharField(max_lenght=12)
+    identifier = models.CharField(max_length=12)
+    print_status = models.BooleanField(default=False)
 
     def __str__(self):
         return self.identifier

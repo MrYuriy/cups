@@ -1,3 +1,14 @@
 from django.db import models
 
-# Create your models here.
+class Label(models.Model):
+    supplier_company = models.CharField(max_length=100)
+    shop = models.CharField(max_length=3)
+    user = models.CharField(max_length=50)
+    data = models.CharField(max_length=10)
+    order = models.CharField(max_length=8)
+    identifier = models.CharField(max_lenght=12)
+
+    def __str__(self):
+        return self.identifier
+    
+    

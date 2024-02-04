@@ -5,6 +5,7 @@ from rest_framework import status
 from .models import Label
 from .serializers import LabelSerializer
 from .utils import generate_label
+from django.http import JsonResponse
 
 # Create your view
 
@@ -25,3 +26,10 @@ class LabelListView(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+def my_view(request):
+    # Your view logic here
+    data = {
+        'key1': 'value1',
+        'key2': 'value2',
+    }
+    return JsonResponse(data)

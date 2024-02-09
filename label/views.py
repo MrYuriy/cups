@@ -12,10 +12,10 @@ from django.http import JsonResponse
 class LabelListView(APIView):
     def get(self, request):
         label = Label.objects.all().filter(print_status=False)
-        label.print_status = True
-        label.save()
+        #label.save()
         #serializer = LabelSerializer(label)
         labels_code = generate_label(label)
+        label.update(print_status=True)
         #return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response({"label_code":labels_code})
 

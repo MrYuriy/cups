@@ -11,7 +11,7 @@ from django.http import JsonResponse
 
 class LabelListView(APIView):
     def get(self, request):
-        label = Label.objects.all().filter(print_status=False)
+        label = Label.objects.all().filter(print_status=False)[:3]
         #label.save()
         #serializer = LabelSerializer(label)
         labels_code = generate_label(label)

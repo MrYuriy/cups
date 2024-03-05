@@ -11,12 +11,12 @@ from django.http import JsonResponse
 
 class LabelListView(APIView):
     def get(self, request):
-        label_set = Label.objects.all().filter(print_status=False)[:5]
-        #label.save()
-        #serializer = LabelSerializer(label)
-        labels_code = generate_label(label_set)
-        Label.objects.filter(id__in=label_set).update(print_status=True)
-        #return Response(serializer.data, status=status.HTTP_201_CREATED)
+        label_set = Label.objects.all().filter(print_status__in=[False])
+
+        labels_code=[]
+        if label_set:
+            labels_code = generate_label(label_set)
+            label_set.update(print_status=True)
         return Response({"label_code":labels_code})
 
     def post(self, request):

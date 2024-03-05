@@ -30,9 +30,10 @@ SECRET_KEY = os.environ["SECRET_KEY"]
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["cups-w6p6.onrender.com",
-                 "127.0.0.1",
-                 ]
+ALLOWED_HOSTS = [
+    "cups-w6p6.onrender.com",
+    "127.0.0.1",
+]
 
 
 # Application definition
@@ -84,17 +85,22 @@ WSGI_APPLICATION = "cups.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
-DATABASE_URL = os.environ.get("DATABASE_URL")
+MONGO_HOST=os.environ["MONGO_HOST"]
+MONGO_USERNAME=os.environ["MONGO_USERNAME"]
+MONGO_PASS=os.environ["MONGO_PASS"]
 
-if DATABASE_URL is not None:
-    DATABASES = {
-        "default": dj_database_url.config(
-            default=DATABASE_URL,
-            conn_max_age=600,
-            conn_health_checks=True,
-        ),
+DATABASES = {
+    "default": {
+        "ENGINE": "djongo",
+        "NAME": "mongo",
+        "CLIENT": {
+            "host": MONGO_HOST,
+            "username": MONGO_USERNAME,
+            "password": MONGO_PASS,
+            "authSource": "admin",
+        },
     }
-
+}
 
 
 # Password validation

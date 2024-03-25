@@ -33,6 +33,7 @@ DEBUG = True
 ALLOWED_HOSTS = [
     "cups-w6p6.onrender.com",
     "127.0.0.1",
+    "cups-kvbf.onrender.com"
 ]
 
 

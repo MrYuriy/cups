@@ -19,7 +19,9 @@ def generate_label_stock(label_ins):
     labels_list = []
     for label_inst in label_ins:
         label_code = (
-            f"^XA^FO 30,70^FB500,2,10,L,0^ATN,30,30^FD Dostawca:  {label_inst.supplier_company}^FS"
+            "^XA"
+            "^MUd,8,200"  # Встановлення одиниць виміру для 203 DPI
+            f"^FO 30,70^FB500,2,10,L,0^ATN,30,30^FD Dostawca:  {label_inst.supplier_company}^FS"
             f"^FO 18,240 ^AUN,50,50^FD USER: {label_inst.user}^FS"
             f"^FO 18,320 ^AUN,50,50^FD DATA: {label_inst.data}^FS"
             f"^FO 18,400 ^AUN,50,50^FD Master :: {label_inst.master_id} ^FS"
@@ -31,4 +33,4 @@ def generate_label_stock(label_ins):
             f"^FO700,120 ^ASB,90,70 ^FD {label_inst.identifier}^XZ"
         )
         labels_list.append(label_code)
-    return(labels_list)
+    return labels_list

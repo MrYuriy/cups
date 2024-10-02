@@ -1,4 +1,4 @@
-/venv
+/cups-venv
 .env
 __pycache__
 .env_esp32

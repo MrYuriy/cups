@@ -39,7 +39,7 @@ def generate_label_stock(label_ins):
         print(line_info)
         label_code = (
             f"^XA"
-            f"^FO950,200^BQN,2,10,3^FDMA{int(label_inst.identifier)}^FS"
+            f"^FO950,200^BQN,2,10,3^FDMA,{label_inst.identifier}^FS"
             f"^FO686,80^ATN,80,80^FD {label_inst.identifier}^FS"
 
             f"^FO44,104^FB740,2,15,L,0^ATN,60,60^FD Dostawca: {label_inst.supplier_company}^FS"

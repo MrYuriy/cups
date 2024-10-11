@@ -15,21 +15,45 @@ def generate_label(label_ins):
         labels_list.append(label_code)
     return(labels_list)
 
+
+def gen_line_info(lines_info):
+    y_gen = 650
+    lines_code = ""
+    for line in lines_info:
+        line_part_of_label = (
+            f"^FO44,{y_gen}^FB1000,3,10,L,0^CI28^ATN,100,100^FD {line['label_title']}^FS"
+            f"^FO44,{y_gen + 100}^FB900,2,15,L,0^ATN,44,44^FD {line['line_info']} ^FS"
+        )
+        y_gen += 200
+        lines_code += line_part_of_label
+    return lines_code    
+
+
 def generate_label_stock(label_ins):
     labels_list = []
     for label_inst in label_ins:
+        line_info = [
+            (line["label_title"], line["line_info"]) 
+            for line in label_inst.lines_info
+        ]
+        print(line_info)
         label_code = (
             f"^XA"
-            f"^FO44,104^FB740,2,15,L,0^ATN,44,44^FD Dostawca:  {label_inst.supplier_company}^FS"
-            f"^FO27,300^AUN,74,74^FD USER: {label_inst.user}^FS"
-            f"^FO27,400^AUN,74,74^FD DATA: {label_inst.data}^FS"
+            f"^FO950,200^BQN,2,10,3^FDMA{label_inst.identifier}^FS"
+            f"^FO686,80^ATN,80,80^FD {label_inst.identifier}^FS"
+
+            f"^FO44,104^FB740,2,15,L,0^ATN,60,60^FD Dostawca: {label_inst.supplier_company}^FS"
+            f"^FO27,200^AUN,74,74^FD {label_inst.user}^FS"
+            f"^FO27,300^AUN,74,74^FD DATA:  {label_inst.data}^FS"
+
+            f"^FO600,300^FB740,3,10,L,0^CI28^ATN,150,150^FD {label_inst.delivery_part}^FS"
+
+            f"^FO27,400^AUN,74,74^FD Pre-Advice: {label_inst.pre_advice}^FS"
             f"^FO27,500^AUN,74,74^FD Master: {label_inst.master_id}^FS"
-            f"^FO44,650^FB740,3,10,L,0^CI28^ATN,100,100^FD{label_inst.comment}^FS"
-            f"^FO27,800^AUN,74,74^FD Order: {label_inst.pre_advice}^FS"
-            f"^FO27,900^AUN,74,74^FD SKU: {label_inst.sku}^FS"
-            f"^FO44,1000^FB1036,2,15,L,0^ATN,44,44^FD Deskription: {label_inst.deskription}^FS"
-            f"^FO860,133^BY5^BCB,177,N,N,N^FD{label_inst.identifier}^FS"
-            f"^FO1036,177^ASB,133,104^FD {label_inst.identifier}^XZ"
+
+            f"{gen_line_info(label_inst.lines_info)}"
+
+            f"^XZ"
         )
         labels_list.append(label_code)
     return labels_list

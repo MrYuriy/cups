@@ -39,7 +39,7 @@ class LabelStockListView(APIView):
         return Response({"label_code":labels_code})
 
     def post(self, request):
-        serializer = LabelStockSerializer(data=request.data)
+        serializer = LabelStockSerializer(data=request.data, many=True)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)

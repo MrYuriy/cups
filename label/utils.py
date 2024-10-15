@@ -22,7 +22,7 @@ def gen_line_info(lines_info):
     for line in lines_info:
         line_part_of_label = (
             f"^FO44,{y_gen}^FB1000,3,10,L,0^CI28^ATN,100,100^FD {line['label_title']}^FS"
-            f"^FO44,{y_gen + 100}^FB900,2,15,L,0^ATN,44,44^FD {line['line_info'][:60]} ^FS"
+            f"^FO44,{y_gen + 100}^FB1000,2,15,L,0^ATN,44,44^FD {line['line_info'][:90]} ^FS"
         )
         y_gen += 200
         lines_code += line_part_of_label

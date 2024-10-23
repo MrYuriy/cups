@@ -12,9 +12,11 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 
 from pathlib import Path
 import os
+from urllib.parse import urlparse
 from dotenv import load_dotenv
 from datetime import timedelta
 import dj_database_url
+from os import getenv
 
 load_dotenv()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -30,11 +32,7 @@ SECRET_KEY = os.environ["SECRET_KEY"]
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [
-    "cups-w6p6.onrender.com",
-    "127.0.0.1",
-    "cups-kvbf.onrender.com"
-]
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -86,20 +84,33 @@ WSGI_APPLICATION = "cups.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
-MONGO_HOST=os.environ["MONGO_HOST"]
-MONGO_USERNAME=os.environ["MONGO_USERNAME"]
-MONGO_PASS=os.environ["MONGO_PASS"]
+# MONGO_HOST=os.environ["MONGO_HOST"]
+# MONGO_USERNAME=os.environ["MONGO_USERNAME"]
+# MONGO_PASS=os.environ["MONGO_PASS"]
+
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "djongo",
+#         "NAME": "mongo",
+#         "CLIENT": {
+#             "host": MONGO_HOST,
+#             "username": MONGO_USERNAME,
+#             "password": MONGO_PASS,
+#             "authSource": "admin",
+#         },
+#     }
+# }
+
+tmpPostgres = urlparse(os.getenv("DATABASE_URL"))
 
 DATABASES = {
-    "default": {
-        "ENGINE": "djongo",
-        "NAME": "mongo",
-        "CLIENT": {
-            "host": MONGO_HOST,
-            "username": MONGO_USERNAME,
-            "password": MONGO_PASS,
-            "authSource": "admin",
-        },
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': tmpPostgres.path.replace('/', ''),
+        'USER': tmpPostgres.username,
+        'PASSWORD': tmpPostgres.password,
+        'HOST': tmpPostgres.hostname,
+        'PORT': 5432,
     }
 }
 

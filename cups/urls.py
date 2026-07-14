@@ -20,4 +20,5 @@ from django.urls import path, include
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("api/label/", include("label.urls", namespace="label")),
+    path("gen-labels/", include("barcode_gen.urls")),
 ]

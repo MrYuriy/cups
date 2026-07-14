@@ -1,0 +1,45 @@
+services:
+
+  backend:
+    build: .
+
+    container_name: cups-backend
+
+    env_file:
+      - .env
+
+    # 8007 on host (8000-8006 are taken by other projects)
+    ports:
+      - "8007:8000"
+
+    restart: unless-stopped
+
+    depends_on:
+      db:
+        condition: service_healthy
+
+
+  db:
+    image: postgres:17
+
+    container_name: cups-db
+
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+    restart: unless-stopped
+
+
+volumes:
+  postgres_data:

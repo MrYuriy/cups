@@ -172,8 +172,6 @@ STATIC_ROOT = BASE_DIR / "staticfiles"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-CORS_ALLOWED_ORIGINS = [
-    "*",
-]
+CORS_ALLOW_ALL_ORIGINS = True
 SECURE_SSL_REDIRECT = False
 SESSION_COOKIE_SECURE = False

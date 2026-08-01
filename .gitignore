@@ -2,3 +2,5 @@
 .env
 __pycache__
 .env_esp32
+# OTA firmware binaries
+firmware_store/

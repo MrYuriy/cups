@@ -7,6 +7,7 @@ from .serializers import LabelSerializer, LabelStockSerializer
 from .utils import generate_label, generate_label_stock
 from django.http import JsonResponse
 from rest_framework.decorators import api_view
+from firmware.services import get_active_version
 
 # Create your view
 
@@ -18,7 +19,12 @@ class LabelListView(APIView):
         if label_set:
             labels_code = generate_label(label_set)
             label_set.update(print_status=True)
-        return Response({"label_code":labels_code})
+        response = Response({"label_code":labels_code})
+        # OTA: віддати ESP актуальну версію прошивки для типу "label"
+        fw_version = get_active_version("label")
+        if fw_version:
+            response["X-Firmware-Version"] = fw_version
+        return response
 
     def post(self, request):
         serializer = LabelSerializer(data=request.data)
@@ -36,7 +42,12 @@ class LabelStockListView(APIView):
         if label_set:
             labels_code = generate_label_stock(label_set)
             label_set.update(print_status=True)
-        return Response({"label_code":labels_code})
+        response = Response({"label_code":labels_code})
+        # OTA: віддати ESP актуальну версію прошивки для типу "stock"
+        fw_version = get_active_version("stock")
+        if fw_version:
+            response["X-Firmware-Version"] = fw_version
+        return response
 
     def post(self, request):
         serializer = LabelStockSerializer(data=request.data, many=True)

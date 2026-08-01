@@ -12,6 +12,10 @@ services:
     ports:
       - "8007:8000"
 
+    volumes:
+      # OTA firmware .bin files — persist across container rebuilds
+      - firmware_data:/app/firmware_store
+
     restart: unless-stopped
 
     depends_on:
@@ -43,3 +47,4 @@ services:
 
 volumes:
   postgres_data:
+  firmware_data:

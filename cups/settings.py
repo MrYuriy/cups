@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     "corsheaders",
     "label",
     "barcode_gen",
+    "firmware",
     "rest_framework",
 ]
 
@@ -171,6 +172,11 @@ STATIC_ROOT = BASE_DIR / "staticfiles"
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+# Прошивки ESP (OTA): бінарники .bin лежать на диску, у БД — лише метадані.
+# Віддаються тільки через download-view, тому це не публічна media-тека.
+FIRMWARE_ROOT = BASE_DIR / "firmware_store"
+FIRMWARE_ROOT.mkdir(parents=True, exist_ok=True)
 
 CORS_ALLOW_ALL_ORIGINS = True
 SECURE_SSL_REDIRECT = False

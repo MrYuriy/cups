@@ -32,6 +32,10 @@ class ReturnLabel(models.Model):
     print_status = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True, null=True)
 
+    class Meta:
+        verbose_name = "Etykieta zwrotu"
+        verbose_name_plural = "Etykiety zwrotów"
+
     def __str__(self):
         return f"{self.oh_number} {self.kind}"
 

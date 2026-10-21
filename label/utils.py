@@ -81,9 +81,8 @@ def _return_label(kind, page, pages, data, oh_number, rows):
         f"^FO30,118^A0N,52,52^FD{data}^FS",
         "^FO430,80^A0N,34,34^FDNR OH^FS",
         f"^FO430,112^A0N,60,60^FD{oh_number}^FS",
-        # The kind of goods is the first thing to see: white on a black bar.
-        f"^FO12,190^GB{side - 24},62,62^FS",
-        f"^FO36,202^A0N,44,44^FR^FD{RETURN_KIND_TITLES.get(kind, kind)}^FS",
+        # The kind of goods is the first thing to see, so it is the largest text on the label.
+        f"^FO36,194^A0N,52,52^FD{RETURN_KIND_TITLES.get(kind, kind)}^FS",
         "^FO30,264^A0N,30,30^FDREFERENCJA^FS",
         "^FO520,264^A0N,30,30^FDILOŚĆ^FS",
         f"^FO30,296^GB{side - 60},2,2^FS",
